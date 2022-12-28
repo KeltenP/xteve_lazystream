@@ -133,6 +133,17 @@ if [ "$use_plexAPI" = "yes" ]; then
 	fi
 fi
 
+# update Jellyfin via API
+if [ "$use_jellyfinAPI" = "yes" ]; then
+        echo "Updating Jellyfin..."
+        if [ -z "$jellyfinIP" ]; then
+                echo "No Jellyfin IP provided"
+        else
+                curl -s -X POST "http://$jellyfinIP:$jellyfinPORT/ScheduledTasks/Running/$jellyfinID?api_key=$jellyfinApiKey" -H "accept: */*" -d ""
+                sleep 1
+        fi
+fi
+
 # update Channels via API
 if [ "$use_channelsAPI" = "yes" ]; then
 	echo "Updating Channels..."
